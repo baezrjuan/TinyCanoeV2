@@ -529,7 +529,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 62b1062fc86fe9848a231375c04c8046, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -563,7 +563,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1520036478}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -592,11 +592,13 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 62b1062fc86fe9848a231375c04c8046, type: 3}
   spriteRight: {fileID: 21300000, guid: 11137f8ee4b9194428641c0a52d33e88, type: 3}
   spriteLeft: {fileID: 21300000, guid: 1c47c0265e68a974cb4d6e2db64da085, type: 3}
-  spear: {fileID: 4567290108300682440, guid: b03a906e7b019484aa9b01e0b883c76b, type: 3}
+  spear: {fileID: 6655002273458935235, guid: b03a906e7b019484aa9b01e0b883c76b, type: 3}
+  thrownSpear: {fileID: 0}
   maxtime: 60
   vertical_paddling: 0
   left_paddling: 0
   right_paddling: 0
+  mouseDown: 0
 --- !u!70 &1520036483
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -753,7 +755,6 @@ GameObject:
   - component: {fileID: 1969643533}
   - component: {fileID: 1969643532}
   - component: {fileID: 1969643535}
-  - component: {fileID: 1969643536}
   m_Layer: 0
   m_Name: rock (2)
   m_TagString: Untagged
@@ -863,18 +864,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
---- !u!114 &1969643536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1969643531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5785944b20d82ab4b9cce63381e05caf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxtime: 1
-  obstacle: {fileID: 0}
-  x: 0

@@ -1,0 +1,1 @@
+Create a new Unity project which will provide the Library directory, and copy this repo directory over the new Unity project directory to set the assets, packages and settings.

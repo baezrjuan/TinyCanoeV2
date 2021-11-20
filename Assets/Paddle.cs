@@ -11,6 +11,10 @@ public class Paddle : MonoBehaviour
 	public Sprite spriteRight;
 	public Sprite spriteLeft;
 	public GameObject spear;
+    public GameObject spear_armed;
+    public int spear_speed = 7;
+
+    public GameObject thrownSpear = null;
 
 	public float maxtime = 60;
 	private float timer = 0; 
@@ -19,10 +23,40 @@ public class Paddle : MonoBehaviour
 	public int left_paddling = 0;
 	public int right_paddling = 0;
 
+    public bool mouseDown = false;
+    public Quaternion spear_armed_rotation;
+
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    void MoveSpear() {
+        if(thrownSpear != null && mouseDown) {
+            thrownSpear.transform.position = transform.position;
+            //Get the Screen positions of the object
+            Vector2 positionOnScreen = Camera.main.WorldToViewportPoint (thrownSpear.transform.position);
+         
+            //Get the Screen position of the mouse
+            Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+         
+            //Get the angle between the points
+            float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
+ 
+            //Set spear angle to point towards the mouse position
+            spear_armed_rotation = Quaternion.Euler (new Vector3(0f,0f,angle));
+            thrownSpear.transform.rotation = spear_armed_rotation;
+        }
+        else if (thrownSpear != null && !mouseDown) {
+            thrownSpear.transform.position += thrownSpear.transform.up * Time.deltaTime * spear_speed;
+            Debug.Log("THROWN");
+            Debug.Log(thrownSpear.transform.position);
+		}
+	}
+    float AngleBetweenTwoPoints(Vector3 a, Vector3 b) {
+         return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
 
     void Move() {
@@ -35,10 +69,24 @@ public class Paddle : MonoBehaviour
 
     	// timer += Time.deltaTime; 
 
-    	if (Input.GetKey("space")) {
-    		GameObject new_spear = Instantiate(spear);
-    		Destroy(new_spear, 10);
-    	}
+        //Arm Spear
+    	if (Input.GetMouseButtonDown(0) && thrownSpear == null) {
+            spear_armed_rotation = Quaternion.Euler (new Vector3(0f,0f,0f));
+            Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    		thrownSpear = Instantiate(spear_armed);
+            thrownSpear.transform.position = transform.position;
+            mouseDown = true;
+    	}  
+        //Throw Spear
+        if (Input.GetMouseButtonUp(0) && mouseDown) {
+            Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Destroy(thrownSpear);
+            thrownSpear = Instantiate(spear);
+            thrownSpear.transform.position = transform.position;
+            thrownSpear.transform.rotation = spear_armed_rotation;
+            Destroy(thrownSpear,2);
+            mouseDown = false;
+		}
 
     	if (Input.GetKey("right")) {
         	rb.velocity = Vector2.up * 0.3f * velocity;
@@ -80,6 +128,8 @@ public class Paddle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MoveSpear();
+
     	if (timer > maxtime) {
 	        Move();
 	    }
