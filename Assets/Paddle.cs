@@ -48,7 +48,7 @@ public class Paddle : MonoBehaviour
             float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
  
             //Set spear angle to point towards the mouse position
-            spear_armed_rotation = Quaternion.Euler (new Vector3(0f,0f,angle));
+            spear_armed_rotation = Quaternion.Euler (new Vector3(0f,0f,angle+90f));
             thrownSpear.transform.rotation = spear_armed_rotation;
         }
         else if (thrownSpear != null && !mouseDown) {
