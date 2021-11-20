@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Paddle : MonoBehaviour
 {
 	public float velocity;
-	private Rigidbody2D rb;
+	private Rigidbody2D body;
 	public Sprite sprite;
 	public Sprite spriteRight;
 	public Sprite spriteLeft;
@@ -30,7 +30,9 @@ public class Paddle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        body = GetComponent<Rigidbody2D>();
+        spear = Resources.Load<GameObject>("GameObjects/spear");
+        spear_armed = Resources.Load<GameObject>("GameObjects/spear armed");
     }
 
     void MoveSpear() {
@@ -89,8 +91,8 @@ public class Paddle : MonoBehaviour
 		}
 
     	if (Input.GetKey("right")) {
-        	rb.velocity = Vector2.up * 0.3f * velocity;
-        	rb.velocity += Vector2.right * 0.6f * velocity;
+        	body.velocity = Vector2.up * 0.3f * velocity;
+        	body.velocity += Vector2.right * 0.6f * velocity;
         	if (right_paddling == 0) {
         		timer = 0;
         		GetComponent<SpriteRenderer>().sprite = spriteRight;
@@ -99,8 +101,8 @@ public class Paddle : MonoBehaviour
         }
         if (Input.GetKey("left")) {
         	GetComponent<SpriteRenderer>().sprite = spriteLeft;
-        	rb.velocity = Vector2.up * 0.3f * velocity;
-        	rb.velocity += Vector2.left * 0.6f * velocity;
+        	body.velocity = Vector2.up * 0.3f * velocity;
+        	body.velocity += Vector2.left * 0.6f * velocity;
         	if (left_paddling == 0) {
         		timer = 0;
         		GetComponent<SpriteRenderer>().sprite = spriteLeft;
@@ -108,7 +110,7 @@ public class Paddle : MonoBehaviour
         	left_paddling = 1;
         }
         if (Input.GetKey("up")) {
-        	rb.velocity = Vector2.up * velocity;
+        	body.velocity = Vector2.up * velocity;
         	if (vertical_paddling == 0) {
         		timer = 0;
         		GetComponent<SpriteRenderer>().sprite = spriteLeft;
@@ -116,7 +118,7 @@ public class Paddle : MonoBehaviour
         	vertical_paddling = 1;        	
         }
          if (Input.GetKey("down")) {
-        	rb.velocity = Vector2.down * velocity;
+        	body.velocity = Vector2.down * velocity;
         	if (vertical_paddling == 0) {
         		timer = 0;
         		GetComponent<SpriteRenderer>().sprite = spriteLeft;

@@ -13,7 +13,7 @@ public class spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        obstacle = Resources.Load<GameObject>("GameObjects/rock obj");
     }
 
     // Update is called once per frame
