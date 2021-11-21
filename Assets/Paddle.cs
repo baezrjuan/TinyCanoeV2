@@ -31,6 +31,9 @@ public class Paddle : MonoBehaviour
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
+        sprite =  Resources.Load<Sprite>("Sprites/Boat neutral");
+        spriteRight =  Resources.Load<Sprite>("Sprites/Boat right");
+        spriteLeft =  Resources.Load<Sprite>("Sprites/Boat left");
         spear = Resources.Load<GameObject>("GameObjects/spear");
         spear_armed = Resources.Load<GameObject>("GameObjects/spear armed");
     }
@@ -53,8 +56,6 @@ public class Paddle : MonoBehaviour
         }
         else if (thrownSpear != null && !mouseDown) {
             thrownSpear.transform.position += thrownSpear.transform.up * Time.deltaTime * spear_speed;
-            Debug.Log("THROWN");
-            Debug.Log(thrownSpear.transform.position);
 		}
 	}
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b) {
