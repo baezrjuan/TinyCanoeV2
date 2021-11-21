@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 298366098}
   - component: {fileID: 298366097}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Fish Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

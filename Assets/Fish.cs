@@ -35,15 +35,15 @@ public class Fish : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {   
-        Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.tag == "spear")
         {
             Destroy(gameObject);
+            Destroy(collision.gameObject);
+
             GameObject score_obj = GameObject.Find("Fish Score");
             string score_txt = score_obj.GetComponent<Text>().text;
-            Debug.Log(score_txt);
-            
             score_obj.GetComponent<Text>().text = (int.Parse(score_txt) + 1).ToString();
+
         }
     }
 }
