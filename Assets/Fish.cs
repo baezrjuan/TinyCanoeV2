@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Fish : MonoBehaviour
 {
@@ -37,8 +38,12 @@ public class Fish : MonoBehaviour
         Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.tag == "spear")
         {
-        Debug.Log("COLLIDE");
             Destroy(gameObject);
+            GameObject score_obj = GameObject.Find("Fish Score");
+            string score_txt = score_obj.GetComponent<Text>().text;
+            Debug.Log(score_txt);
+            
+            score_obj.GetComponent<Text>().text = (int.Parse(score_txt) + 1).ToString();
         }
     }
 }
