@@ -7,9 +7,9 @@ public class Fish : MonoBehaviour
 {
     public List<Sprite> fish_frames; 
 
+    int frames_per_animation = 60;
     int max_timer;
     int timer;
-    int frames_per_animation = 60;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,7 @@ public class Fish : MonoBehaviour
     void Update()
     {
         //every 30 frames, change the fish sprite to animate
-        if (timer % frames_per_animation == 0) {
+        if (timer % frames_per_animation == 0 && GetComponent<SpriteRenderer>().sprite != Resources.Load<Sprite>("Sprites/fish caught")) {
             GetComponent<SpriteRenderer>().sprite = fish_frames[(timer/frames_per_animation)-1];
         }
         if (timer == 1) 
@@ -37,7 +37,9 @@ public class Fish : MonoBehaviour
     {   
         if (collision.gameObject.tag == "spear")
         {
-            Destroy(gameObject);
+            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/fish caught");
+            Destroy(gameObject, 1);
+
             Destroy(collision.gameObject);
 
             GameObject score_obj = GameObject.Find("Fish Score");
