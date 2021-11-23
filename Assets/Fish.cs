@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Fish : MonoBehaviour
 {
-    public List<Sprite> fish_frames; 
+    public List<Sprite> frames; 
 
     int frames_per_animation = 60;
     int max_timer;
@@ -16,21 +16,29 @@ public class Fish : MonoBehaviour
     {   
         max_timer = frames_per_animation * 3 + 1;
         timer = max_timer;
-        fish_frames.Add(Resources.Load<Sprite>("Sprites/fish down1"));
-        fish_frames.Add(Resources.Load<Sprite>("Sprites/fish down2"));
-        fish_frames.Add(Resources.Load<Sprite>("Sprites/fish down3"));
+        frames.Add(Resources.Load<Sprite>("Sprites/fish down1"));
+        frames.Add(Resources.Load<Sprite>("Sprites/fish down2"));
+        frames.Add(Resources.Load<Sprite>("Sprites/fish down3"));
     }
 
     // Update is called once per frame
     void Update()
     {
-        //every 30 frames, change the fish sprite to animate
-        if (timer % frames_per_animation == 0 && GetComponent<SpriteRenderer>().sprite != Resources.Load<Sprite>("Sprites/fish caught")) {
-            GetComponent<SpriteRenderer>().sprite = fish_frames[(timer/frames_per_animation)-1];
-        }
+        fish_move_animation();
+        tick_timer();
+    }
+
+    void tick_timer() {
         if (timer == 1) 
             timer = max_timer;
         timer -= 1;
+    }
+
+    void fish_move_animation() {
+        //every # frames, change the fish sprite to animate
+        if (timer % frames_per_animation == 0 && GetComponent<SpriteRenderer>().sprite != Resources.Load<Sprite>("Sprites/fish caught")) {
+            GetComponent<SpriteRenderer>().sprite = frames[(timer/frames_per_animation)-1];
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)

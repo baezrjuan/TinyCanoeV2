@@ -63,33 +63,7 @@ public class Paddle : MonoBehaviour
     }
 
     void Move() {
-    	// if (timer > maxtime) {
-    		
-    	// 	new_obstacle.transform.position = transform.position + new Vector3(Random.Range(-x, x), 0);
-    		
-    	// 	timer = 0;
-    	// }
-
-    	// timer += Time.deltaTime; 
-
-        //Arm Spear
-    	if (Input.GetMouseButtonDown(0) && thrownSpear == null) {
-            spear_armed_rotation = Quaternion.Euler (new Vector3(0f,0f,0f));
-            Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    		thrownSpear = Instantiate(spear_armed);
-            thrownSpear.transform.position = transform.position;
-            mouseDown = true;
-    	}  
-        //Throw Spear
-        if (Input.GetMouseButtonUp(0) && mouseDown) {
-            Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Destroy(thrownSpear);
-            thrownSpear = Instantiate(spear);
-            thrownSpear.transform.position = transform.position;
-            thrownSpear.transform.rotation = spear_armed_rotation;
-            Destroy(thrownSpear,2);
-            mouseDown = false;
-		}
+        Spear_Input();
 
     	if (Input.GetKey("right")) {
         	body.velocity = Vector2.up * 0.3f * velocity;
@@ -128,6 +102,45 @@ public class Paddle : MonoBehaviour
         }
     }
 
+    void Spear_Input() {
+        //Arm Spear
+        if (Input.GetMouseButtonDown(0) && thrownSpear == null) {
+            spear_armed_rotation = Quaternion.Euler (new Vector3(0f,0f,0f));
+            Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            thrownSpear = Instantiate(spear_armed);
+            thrownSpear.transform.position = transform.position;
+            mouseDown = true;
+        }  
+        //Throw Spear
+        if (Input.GetMouseButtonUp(0) && mouseDown) {
+            Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Destroy(thrownSpear);
+            thrownSpear = Instantiate(spear);
+            thrownSpear.transform.position = transform.position;
+            thrownSpear.transform.rotation = spear_armed_rotation;
+            Destroy(thrownSpear,2);
+            mouseDown = false;
+        }
+    }
+
+    void paddle_movement() { 
+        if ((timer > maxtime) && vertical_paddling == 2){
+            vertical_paddling = 0;
+            GetComponent<SpriteRenderer>().sprite = sprite;
+        }
+        else if (timer > (maxtime/2) && vertical_paddling == 1) {
+            vertical_paddling = 2;
+            GetComponent<SpriteRenderer>().sprite = spriteRight;
+        }
+        else if (timer > (maxtime/2) && vertical_paddling == 0 && (left_paddling == 1 || right_paddling == 1)) {
+            GetComponent<SpriteRenderer>().sprite = sprite;
+            if (left_paddling == 1)
+                left_paddling = 0;
+            else if (right_paddling == 1)
+                right_paddling = 0;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -138,21 +151,8 @@ public class Paddle : MonoBehaviour
 	    }
 
         timer += 1;
-        if ((timer > maxtime) && vertical_paddling == 2){
-        	vertical_paddling = 0;
-        	GetComponent<SpriteRenderer>().sprite = sprite;
-        }
-        else if (timer > (maxtime/2) && vertical_paddling == 1) {
-        	vertical_paddling = 2;
-        	GetComponent<SpriteRenderer>().sprite = spriteRight;
-        }
-        else if (timer > (maxtime/2) && vertical_paddling == 0 && (left_paddling == 1 || right_paddling == 1)) {
-        	GetComponent<SpriteRenderer>().sprite = sprite;
-        	if (left_paddling == 1)
-        		left_paddling = 0;
-        	else if (right_paddling == 1)
-        		right_paddling = 0;
-        }
+
+        paddle_movement();
     }
 
      void OnBecameInvisible() {
