@@ -24,7 +24,7 @@ public class Fish : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        fish_move_animation();
+        move_animation();
         tick_timer();
     }
 
@@ -34,7 +34,7 @@ public class Fish : MonoBehaviour
         timer -= 1;
     }
 
-    void fish_move_animation() {
+    void move_animation() {
         //every # frames, change the fish sprite to animate
         if (timer % frames_per_animation == 0 && GetComponent<SpriteRenderer>().sprite != Resources.Load<Sprite>("Sprites/fish caught")) {
             GetComponent<SpriteRenderer>().sprite = frames[(timer/frames_per_animation)-1];

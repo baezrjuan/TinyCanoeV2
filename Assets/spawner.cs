@@ -11,16 +11,18 @@ public class spawner : MonoBehaviour
     public float maxtime_water = 5;
 	private float timer_water = 5; 
 
-	public GameObject obstacle;
-    public GameObject fish;
-    public GameObject water;
+    GameObject water;
+
+    public List<GameObject> spawn_objects; 
+
 	public float x;
 
     // Start is called before the first frame update
     void Start()
     {
-        obstacle = Resources.Load<GameObject>("GameObjects/rock obj");
-        fish = Resources.Load<GameObject>("GameObjects/fish down");
+        spawn_objects.Add(Resources.Load<GameObject>("GameObjects/rock obj"));
+        spawn_objects.Add(Resources.Load<GameObject>("GameObjects/fish down"));
+        spawn_objects.Add(Resources.Load<GameObject>("GameObjects/alligator1"));
         water = Resources.Load<GameObject>("GameObjects/water");
     }
 
@@ -28,14 +30,16 @@ public class spawner : MonoBehaviour
     void Update()
     {
     	if (timer > maxtime) {
-    		GameObject new_obstacle = Instantiate(obstacle);
-    		new_obstacle.transform.position = transform.position + new Vector3(Random.Range(-x, x), 0);
-    		Destroy(new_obstacle, 15);
-
-            GameObject new_fish = Instantiate(fish);
-    		new_fish.transform.position = transform.position + new Vector3(Random.Range(-x, x), 0);
-    		Destroy(new_fish, 15);
-
+            int alligator_spawn_chance = Random.Range(0, 3);
+            foreach(GameObject spawn_object in spawn_objects) {
+                if (spawn_object == Resources.Load<GameObject>("GameObjects/alligator1")) {
+                    if (alligator_spawn_chance != 1)
+                        continue;
+                }
+                GameObject new_object = Instantiate(spawn_object);
+    		    new_object.transform.position = transform.position + new Vector3(Random.Range(-x, x), 0);
+    		    Destroy(new_object, 15);
+			}
     		timer = 0;
     	}
 

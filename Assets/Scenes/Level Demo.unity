@@ -300,7 +300,7 @@ GameObject:
   - component: {fileID: 1520036483}
   m_Layer: 0
   m_Name: Boat neutral
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -464,9 +464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxtime: 1
   maxtime_water: 5
-  obstacle: {fileID: 0}
-  fish: {fileID: 0}
-  water: {fileID: 0}
+  spawn_objects: []
   x: 12
 --- !u!4 &1797506789
 Transform:
