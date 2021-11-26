@@ -31,14 +31,15 @@ public class Paddle : MonoBehaviour
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
-        sprite =  Resources.Load<Sprite>("Sprites/Boat neutral");
-        spriteRight =  Resources.Load<Sprite>("Sprites/Boat right");
-        spriteLeft =  Resources.Load<Sprite>("Sprites/Boat left");
+        sprite = Resources.Load<Sprite>("Sprites/Boat neutral");
+        spriteRight = Resources.Load<Sprite>("Sprites/Boat right");
+        spriteLeft = Resources.Load<Sprite>("Sprites/Boat left");
         spear = Resources.Load<GameObject>("GameObjects/spear");
         spear_armed = Resources.Load<GameObject>("GameObjects/spear armed");
     }
 
     void MoveSpear() {
+        //if spear is armed
         if(thrownSpear != null && mouseDown) {
             thrownSpear.transform.position = transform.position;
             //Get the Screen positions of the object
@@ -54,6 +55,7 @@ public class Paddle : MonoBehaviour
             spear_armed_rotation = Quaternion.Euler (new Vector3(0f,0f,angle+90f));
             thrownSpear.transform.rotation = spear_armed_rotation;
         }
+        //if spear is thrown
         else if (thrownSpear != null && !mouseDown) {
             thrownSpear.transform.position += thrownSpear.transform.up * Time.deltaTime * spear_speed;
 		}
