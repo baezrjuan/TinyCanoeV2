@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Title : MonoBehaviour
 {
@@ -24,20 +23,14 @@ public class Title : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Return)) {
-            Debug.Log("LOADING...");
-            SceneManager.LoadScene("Scenes/Level Demo", LoadSceneMode.Single); 
-            Destroy(gameObject);
-		}
-
         Animator();
     }
 
     void Animator() {
         if (fade_out)
-            fade -= 0.002f;
+            fade -= 0.004f;
         else if (!fade_out)
-            fade += 0.002f;
+            fade += 0.004f;
 
         GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,fade); 
         if (fade >= 1)
