@@ -63,7 +63,7 @@ public class enemy : MonoBehaviour
             fade_out = true;
             Destroy(collision.gameObject);
         }
-        else if (collision.gameObject.tag == "Player")
+        else if (collision.gameObject.tag == "Player" && !fade_out)
         {
             SceneManager.LoadScene( SceneManager.GetActiveScene().name );
         }

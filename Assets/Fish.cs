@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Fish : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class Fish : MonoBehaviour
     int frames_per_animation = 60;
     int max_timer;
     int timer;
+
+    int max_score = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -52,8 +55,12 @@ public class Fish : MonoBehaviour
 
             GameObject score_obj = GameObject.Find("Fish Score");
             string score_txt = score_obj.GetComponent<Text>().text;
-            score_obj.GetComponent<Text>().text = (int.Parse(score_txt) + 1).ToString();
-
+            int score = (int.Parse(score_txt) + 1);
+            score_obj.GetComponent<Text>().text = score.ToString();
+            
+            if (score == max_score) {
+                SceneManager.LoadScene("Scenes/title screen", LoadSceneMode.Single); 
+			}
         }
     }
 }

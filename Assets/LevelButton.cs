@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class LevelButton : MonoBehaviour
 {
     IDictionary<string, string> levels = new Dictionary<string, string>();
+    float fade = 1f;
+    string fade_type;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +18,17 @@ public class LevelButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,fade); 
+        Debug.Log(fade);
+        if (fade <= 0f)
+            fade_type = "in";
+        else if (fade >= 1f)
+            fade_type = "out";
+
+        if (fade_type == "out")
+            fade -= .002f;
+        else if (fade_type == "in")
+            fade +=  .005f;
     }
 
     void OnMouseDown()
