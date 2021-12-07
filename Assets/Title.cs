@@ -1,43 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 public class Title : MonoBehaviour
 {
-    float timer = 0;
-    float max_time = 2;
+    public GameObject level_icon;
 
-    public List<Sprite> frames; 
-    float fade = 1;
-    bool fade_out;
+    GameObject title_screen;
+
+    public List<Sprite> title_screens; 
 
     // Start is called before the first frame update
     void Start()
     {
-        frames.Add(Resources.Load<Sprite>("Sprites/Title screen"));
-        frames.Add(Resources.Load<Sprite>("Sprites/Title screen 2"));
+        title_screens.Add(Resources.Load<Sprite>("Sprites/level title 1"));
+        title_screens.Add(Resources.Load<Sprite>("Sprites/level title 2"));
 
-        GetComponent<SpriteRenderer>().sprite = frames[0];
+        title_screen = GameObject.Find("Title screen");
     }
 
     // Update is called once per frame
     void Update()
     {
-        Animator();
+        int level = int.Parse(Regex.Match(level_icon.name, @"\d+").Value);
+        title_screen.GetComponent<SpriteRenderer>().sprite = title_screens[level-1];
     }
-
-    void Animator() {
-        if (fade_out)
-            fade -= 0.004f;
-        else if (!fade_out)
-            fade += 0.004f;
-
-        GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,fade); 
-        if (fade >= 1)
-            fade_out = true;
-        else if (fade <= 0)
-            fade_out = false; //fade-in
-            
-
-	}
 }

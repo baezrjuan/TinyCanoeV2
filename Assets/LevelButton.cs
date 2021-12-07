@@ -12,6 +12,7 @@ public class LevelButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Add level num and scene name
         levels.Add("1", "Level Demo");
     }
 
@@ -19,7 +20,6 @@ public class LevelButton : MonoBehaviour
     void Update()
     {
         GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,fade); 
-        Debug.Log(fade);
         if (fade <= 0f)
             fade_type = "in";
         else if (fade >= 1f)
